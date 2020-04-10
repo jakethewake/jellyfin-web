@@ -78,6 +78,16 @@ define(["appSettings", "browser", "events", "htmlMediaHelper", "webSettings"], f
     }
 
     function generateDeviceId() {
+        if (window.crypto && window.crypto.getRandomValues) {
+            console.debug("using new device id generation code");
+
+            var csprng = new Int32Array(7);
+            window.crypto.getRandomValues(csprng);
+            return Promise.resolve(btoa(csprng));
+        }
+
+        console.warn("using original device id generator");
+
         var keys = [];
 
         if (keys.push(navigator.userAgent), keys.push(new Date().getTime()), self.btoa) {

@@ -1,4 +1,4 @@
-import { SyncPlayUserAccessType, UserDto } from '@thornbill/jellyfin-sdk/dist/generated-client';
+import type { SyncPlayUserAccessType, UserDto } from '@thornbill/jellyfin-sdk/dist/generated-client';
 import React, { FunctionComponent, useCallback, useEffect, useState, useRef } from 'react';
 import Dashboard from '../../scripts/clientUtils';
 import globalize from '../../scripts/globalize';
@@ -263,7 +263,7 @@ const UserEditPage: FunctionComponent = () => {
             }
         });
 
-        window.ApiClient.getServerConfiguration().then(function (config) {
+        window.ApiClient.getNamedConfiguration('network').then(function (config) {
             const fldRemoteAccess = page.querySelector('.fldRemoteAccess') as HTMLDivElement;
             config.EnableRemoteAccess ? fldRemoteAccess.classList.remove('hide') : fldRemoteAccess.classList.add('hide');
         });
